@@ -1,6 +1,6 @@
 # Configurar SonarQube Cloud e GitHub
 
-Nome do projeto: **Playwright Quality Lab**. Nome do repositório: **playwright-quality-lab**. A branch original é `master`; o workflow também aceita `main`.
+Nome do projeto: **Playwright Quality Lab**. Repositório: **[guilhermegm-2k26/playwright-quality-lab](https://github.com/guilhermegm-2k26/playwright-quality-lab)**. A branch original é `master`; o workflow também aceita `main`.
 
 ## 1. Conferir o fork
 
@@ -28,7 +28,7 @@ Este guia usa a região EU e `https://sonarcloud.io`. Se você criar o projeto n
 
 ## 4. Cadastrar o secret e as variáveis no GitHub
 
-No fork, abra **Settings > Secrets and variables > Actions**.
+No fork, abra **Settings > Secrets and variables > Actions**. Atalhos: [Secrets](https://github.com/guilhermegm-2k26/playwright-quality-lab/settings/secrets/actions) e [Variables](https://github.com/guilhermegm-2k26/playwright-quality-lab/settings/variables/actions).
 
 Na aba **Secrets**, escolha **New repository secret**:
 
@@ -49,7 +49,7 @@ Não é necessário editar as chaves em `sonar-project.properties`: o workflow a
 
 ## 5. Executar e conferir
 
-1. No GitHub, abra **Actions > Build and Tests > Run workflow**.
+1. No GitHub, abra **[Actions > Build and Tests](https://github.com/guilhermegm-2k26/playwright-quality-lab/actions/workflows/node.js.yml) > Run workflow**.
 2. Selecione a branch padrão (`master`, salvo se você a renomeou) e execute.
 3. Confira **Run E2E Tests**. Ao fim, baixe `playwright-results` na área **Artifacts** da execução para consultar o relatório e as evidências.
 4. Confira **Run SonarCloud**. O scanner publica a análise e aguarda o resultado do **Quality Gate**; se o gate reprovar, o job fica vermelho para sinalizar os problemas.

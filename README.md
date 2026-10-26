@@ -2,6 +2,8 @@
 
 Laboratório de automação E2E com **Playwright e TypeScript**, execução no **GitHub Actions** e análise estática no **SonarQube Cloud** (antigo SonarCloud).
 
+Repositório: [guilhermegm-2k26/playwright-quality-lab](https://github.com/guilhermegm-2k26/playwright-quality-lab).
+
 Baseado em [ugioni/playwright-e2e](https://github.com/ugioni/playwright-e2e). A autoria original e a licença MIT foram preservadas.
 
 ## Executar localmente
