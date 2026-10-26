@@ -1,10 +1,13 @@
 {
-  "name": "playwright-e2e",
+  "name": "playwright-quality-lab",
   "version": "1.0.0",
-  "description": "E2E tests using MS Playwright",
-  "main": "index.js",
+  "description": "Laboratório de testes E2E com Playwright, TypeScript e SonarQube Cloud",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "author": "ugioni",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@playwright/mcp": "^0.0.83",
     "@types/node": "^25.6.0",
@@ -23,12 +26,14 @@
     "clean": "rimraf ./artifacts && mkdirp ./artifacts",
     "format": "prettier --write \"**/**.[jt]s?(x)\"",
     "verify": "prettier --check \"**/**.[jt]s?(x)\"",
-    "scenario": "npx playwright test src/scenarios/NarwalContato.spec.ts --output artifacts/media --workers 1",
+    "scenario": "playwright test src/scenarios/SauceDemo.spec.ts --workers 1",
+    "typecheck": "tsc --noEmit",
+    "test:list": "playwright test --list",
     "test": "npx playwright test --output artifacts/media --workers 4",
     "debug": "npx playwright test --output artifacts/media --debug --workers 1",
     "ui": "npx playwright test --output artifacts/media --ui --workers 1",
     "show-report": "npx playwright show-report artifacts/report",
     "actions": "npx playwright test --output artifacts/media --workers 1",
-    "ci": "npm run clean && npm run format && npm run verify && npm run test"
+    "ci": "npm run clean && npm run verify && npm run typecheck && npm run actions"
   }
 }
