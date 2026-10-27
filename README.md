@@ -62,4 +62,4 @@ O workflow executa em pushes e pull requests para `master`/`main`, manualmente e
 
 Os testes funcionam sem uma conta Sonar. O job do Sonar fica ignorado até configurar as variáveis `SONAR_PROJECT_KEY` e `SONAR_ORGANIZATION`. Também é necessário cadastrar o secret `SONAR_TOKEN`. Consulte o **[guia completo de configuração](docs/SONAR_SETUP.md)**.
 
-O Sonar analisa os arquivos de suporte como código-fonte e os cenários como testes. O relatório HTML do Playwright não é cobertura LCOV da aplicação: este projeto não configura nem declara cobertura de código da aplicação testada.
+O Sonar analisa cenários, páginas e elementos TypeScript como código de testes, com as regras próprias dessa categoria, e os workflows YAML como arquivos de código. Este repositório não contém a aplicação do LinkedIn nem das outras plataformas testadas. O relatório HTML do Playwright não é cobertura LCOV dessas aplicações.

@@ -68,9 +68,11 @@ Os jobs são independentes: uma falha de um site externo nos testes não impede 
 
 ## Como interpretar cobertura
 
-`src/support` é analisado como código-fonte do projeto de automação; `src/scenarios` é analisado como testes. Não configuramos `sonar.javascript.lcov.reportPaths` porque os testes E2E não produzem automaticamente um LCOV da aplicação acessada no navegador.
+Todos os arquivos TypeScript em `src` — cenários, Page Objects e elementos — pertencem à automação e são classificados como código de testes. Os workflows de `.github` são classificados como arquivos de código e recebem a análise YAML. As duas categorias usam regras diferentes no Sonar. A aplicação acessada pelo navegador não está neste repositório.
 
-Se o Quality Gate reclamar de cobertura, confira quais arquivos estão sendo cobrados. Para medir a cobertura real, será necessário instrumentar uma aplicação sob seu controle ou adicionar testes unitários para o código de suporte. Não use um relatório vazio, não declare 100% e não exclua todos os arquivos apenas para deixar o gate verde.
+Essa classificação segue a [distinção oficial entre código de aplicação e código de testes](https://docs.sonarsource.com/sonarqube-cloud/managing-your-projects/project-analysis/setting-analysis-scope/setting-initial-scope). Código de testes não entra na métrica de cobertura da aplicação. Não configuramos `sonar.javascript.lcov.reportPaths` nem geramos um LCOV fictício.
+
+Se você adicionar uma aplicação ou biblioteca que seja o produto testado, inclua seu caminho em `sonar.sources`, sem sobrepor `sonar.tests`, e gere a cobertura real antes do scanner. Não use um relatório vazio, não declare 100% e não exclua arquivos da aplicação apenas para deixar o gate verde.
 
 ## Problemas comuns
 
