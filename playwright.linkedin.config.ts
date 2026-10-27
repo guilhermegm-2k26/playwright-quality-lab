@@ -6,8 +6,6 @@ export default defineConfig({
   testMatch: '**/LinkedIn.spec.ts',
   testIgnore: [],
   workers: 1,
-  timeout: 45000,
-  globalTimeout: 5 * 60 * 1000,
   outputDir: 'artifacts/linkedin/media',
   reporter: [
     ['list'],

@@ -50,6 +50,8 @@ npm run test:linkedin -- --grep "campos vazios"
 
 O workflow não exige novos secrets nem credenciais do LinkedIn. A execução é manual e usa um único worker, sem tentativas automáticas adicionais.
 
+A suíte herda os limites da configuração principal: 120 segundos por cenário e 10 minutos no total. Ao abrir o login, aguarda o DOM e os campos editáveis, sem depender da remoção de parâmetros de rastreamento nem do carregamento completo de todos os recursos da página.
+
 ## Estrutura
 
 - `src/scenarios/LinkedIn.spec.ts`: os cinco cenários.
