@@ -18,11 +18,11 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Check formatting and types
         run: npm run verify && npm run typecheck
       - name: Install Chromium
-        run: npx playwright install --with-deps chromium
+        run: ./node_modules/.bin/playwright install --with-deps chromium
       - name: Run LinkedIn public scenarios
         run: npm run test:linkedin
       - name: Save LinkedIn report and failure evidence

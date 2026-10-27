@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { join } from 'path';
 import { TheConfig } from 'sicolo';
 import CadastroPage from '../support/pages/CadastroPage';
@@ -15,7 +15,8 @@ test.describe('Sauce Demo', () => {
     await page.goto(BASE_URL);
   });
 
-  test('Validação do carrinho', async () => {
+  test('Validação do carrinho', async ({ page }) => {
     await cadastroPage.validarCarrinho();
+    await expect(page).toHaveURL(/\/checkout-step-one\.html(?:\?|$)/);
   });
 });
