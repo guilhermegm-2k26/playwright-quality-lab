@@ -56,6 +56,8 @@ A suíte do LinkedIn segue o padrão de cenários, páginas e elementos do proje
 
 Ela tem configuração e execução manual próprias, pois acessa um serviço externo que pode restringir automação. Não participa de `npm test`/`npm run ci` nem da agenda diária. Um bloqueio é reportado como falha, com evidências no relatório. Consulte o **[guia dos testes LinkedIn](docs/LINKEDIN_E2E.md)**.
 
+A suíte padrão inclui uma regressão sem rede para a abertura do login (`LinkedInNavigation.spec.ts`), separada dos cinco cenários públicos.
+
 ## GitHub Actions e Sonar
 
 O workflow executa em pushes e pull requests para `master`/`main`, manualmente e diariamente às 12h UTC (9h de São Paulo). Em forks, habilite a aba **Actions** para permitir as execuções.

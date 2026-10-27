@@ -61,7 +61,7 @@ A suíte herda os limites da configuração principal: 120 segundos por cenário
 - `playwright.linkedin.config.ts`: configuração exclusiva da suíte.
 - `.github/workflows/linkedin-e2e.yml`: execução manual no GitHub.
 
-A configuração padrão ignora explicitamente `LinkedIn.spec.ts`. A configuração LinkedIn remove essa exclusão e seleciona somente esse arquivo. Portanto, os comandos `npm test`, `npm run ci` e a agenda diária continuam executando os cinco cenários anteriores.
+A configuração padrão ignora explicitamente `LinkedIn.spec.ts`. A configuração LinkedIn remove essa exclusão e seleciona somente esse arquivo. Os comandos `npm test`, `npm run ci` e a agenda diária executam os cinco cenários anteriores e uma regressão de navegação sem acesso ao LinkedIn (`LinkedInNavigation.spec.ts`). Essa regressão verifica um formulário pronto cujo carregamento completo está pendente e cuja URL mantém parâmetros de rastreamento; ela não substitui os cinco testes no site real.
 
 ## Relatórios
 
