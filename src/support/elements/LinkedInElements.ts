@@ -38,14 +38,10 @@ export default class LinkedInElements extends BaseElements {
     });
   }
 
-  async getErroEmail(): Promise<Locator> {
-    const id = await this.getCampoEmail().getAttribute('aria-describedby');
-    if (!id) {
-      throw new Error(
-        'O campo de e-mail não está associado à mensagem de validação'
-      );
-    }
-    return this.page.locator(`[id=${JSON.stringify(id)}]`);
+  getErroEmail(): Locator {
+    return this.page.getByText(
+      /insira um e-mail ou telefone|enter an email address or phone number/i
+    );
   }
 
   getLinkRecuperarSenha(): Locator {

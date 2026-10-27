@@ -46,8 +46,10 @@ export default class LinkedInPage extends BasePage {
 
   async abrirLogin(): Promise<void> {
     await this.linkedinElements.getLinkEntrar().click();
-    await expect(this.page).toHaveURL(
-      /^https:\/\/www\.linkedin\.com\/login(?:\/(?:pt|en))?\/?(?:\?|$)/
+    // A versão localizada redireciona para a URL com barra final e recria o formulário.
+    await this.page.waitForURL(
+      /^https:\/\/www\.linkedin\.com\/login(?:\/(?:pt|en)\/|\/?)(?:\?|$)/,
+      { waitUntil: 'load' }
     );
     await expect(this.linkedinElements.getCampoEmail()).toBeVisible();
   }
@@ -65,7 +67,7 @@ export default class LinkedInPage extends BasePage {
 
   async validarLoginSemPreenchimento(): Promise<void> {
     await this.linkedinElements.getBotaoEntrar().click();
-    const erroEmail = await this.linkedinElements.getErroEmail();
+    const erroEmail = this.linkedinElements.getErroEmail();
     await expect(erroEmail).toBeVisible();
     await expect(erroEmail).toContainText(/\S/);
     await expect(this.page).toHaveURL(
@@ -76,6 +78,7 @@ export default class LinkedInPage extends BasePage {
   async validarVisibilidadeDaSenha(senha: string): Promise<void> {
     const campoSenha = this.linkedinElements.getCampoSenha();
     await campoSenha.fill(senha);
+    await expect(campoSenha).toHaveValue(senha);
     await expect(campoSenha).toHaveAttribute('type', 'password');
     await this.linkedinElements.getBotaoVisibilidadeSenha().click();
     await expect(campoSenha).toHaveAttribute('type', 'text');
