@@ -21,8 +21,11 @@ No Linux, instale também as dependências do navegador com `npx playwright inst
 
 | Comando | Finalidade |
 | --- | --- |
-| `npm test` | Executar toda a suíte |
+| `npm test` | Executar a suíte padrão (sem LinkedIn) |
 | `npm run scenario` | Executar apenas Sauce Demo |
+| `npm run test:linkedin` | Executar os cinco cenários públicos do LinkedIn |
+| `npm run test:linkedin:list` | Listar os cenários do LinkedIn |
+| `npm run show-report:linkedin` | Abrir o relatório do LinkedIn |
 | `npm run test:list` | Listar cenários sem abrir o navegador |
 | `npm run typecheck` | Verificar os tipos do TypeScript |
 | `npm run verify` | Conferir a formatação |
@@ -36,15 +39,22 @@ Os relatórios ficam em `artifacts/report/`; traces e capturas de falhas ficam e
 
 ## Cenários e estrutura
 
-- `src/scenarios/`: cadastro em Buger Eats, carrinho em Sauce Demo e navegação/busca na Globo.
+- `src/scenarios/`: cadastro em Buger Eats, carrinho em Sauce Demo, navegação/busca na Globo e fluxos públicos do LinkedIn.
 - `src/support/pages/`: ações e verificações das páginas.
 - `src/support/elements/`: seletores dos elementos.
 - `src/support/fixtures/`: URLs de demonstração e arquivo de upload.
 - `playwright.config.ts`: Chromium, idioma pt-BR e relatórios.
 - `.github/workflows/node.js.yml`: testes e análise Sonar em jobs independentes.
 - `docs/SONAR_SETUP.md`: configuração passo a passo.
+- `docs/LINKEDIN_E2E.md`: cenários, execução e limites da suíte LinkedIn.
 
 Os testes acessam sites externos. Mudanças de página, indisponibilidade e bloqueios de automação podem causar falhas; consulte o relatório antes de alterar uma expectativa. Os cenários atuais não usam ZeroStep nem exigem `ZEROSTEP_TOKEN`.
+
+## Testes do LinkedIn
+
+A suíte do LinkedIn segue o padrão de cenários, páginas e elementos do projeto. Execute `npm run test:linkedin` ou **Actions > LinkedIn E2E > Run workflow**. Não precisa de conta nem senha.
+
+Ela tem configuração e execução manual próprias, pois acessa um serviço externo que pode restringir automação. Não participa de `npm test`/`npm run ci` nem da agenda diária. Um bloqueio é reportado como falha, com evidências no relatório. Consulte o **[guia dos testes LinkedIn](docs/LINKEDIN_E2E.md)**.
 
 ## GitHub Actions e Sonar
 

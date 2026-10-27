@@ -1,0 +1,34 @@
+name: LinkedIn E2E
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linkedin:
+    name: Run LinkedIn E2E
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Check formatting and types
+        run: npm run verify && npm run typecheck
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run LinkedIn public scenarios
+        run: npm run test:linkedin
+      - name: Save LinkedIn report and failure evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: linkedin-results
+          path: artifacts/linkedin/
+          retention-days: 14

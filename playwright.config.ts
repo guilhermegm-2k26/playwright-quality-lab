@@ -2,6 +2,7 @@ import { PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
   testDir: 'src/scenarios',
+  testIgnore: '**/LinkedIn.spec.ts',
   timeout: 120000,
   globalTimeout: 10 * 60 * 1000,
   forbidOnly: !!process.env.CI,
