@@ -7,23 +7,25 @@ export default class LinkedInElements extends BaseElements {
   }
 
   getLinkEntrar(): Locator {
-    return this.page.locator(
-      'nav a[data-tracking-control-name$="nav-header-signin"]'
-    );
+    return this.page.getByRole('link', { name: /^(entrar|sign in)$/i }).first();
   }
 
   getLinkCadastro(): Locator {
-    return this.page.locator(
-      'nav a[data-tracking-control-name$="nav-header-join"]'
-    );
+    return this.page
+      .getByRole('link', { name: /^(cadastre-se(?: agora)?|join now)$/i })
+      .first();
   }
 
   getCampoEmail(): Locator {
-    return this.page.locator('#username');
+    return this.page.getByRole('textbox', {
+      name: /e-?mail ou telefone|email or phone/i
+    });
   }
 
   getCampoSenha(): Locator {
-    return this.page.locator('#password');
+    return this.page
+      .getByLabel(/^(senha|password)$/i)
+      .filter({ visible: true });
   }
 
   getBotaoEntrar(): Locator {
@@ -32,12 +34,18 @@ export default class LinkedInElements extends BaseElements {
 
   getBotaoVisibilidadeSenha(): Locator {
     return this.page.getByRole('button', {
-      name: /mostrar|show|ocultar|hide/i
+      name: /mostrar|exibir|show|ocultar|hide/i
     });
   }
 
-  getErroEmail(): Locator {
-    return this.page.locator('#error-for-username');
+  async getErroEmail(): Promise<Locator> {
+    const id = await this.getCampoEmail().getAttribute('aria-describedby');
+    if (!id) {
+      throw new Error(
+        'O campo de e-mail não está associado à mensagem de validação'
+      );
+    }
+    return this.page.locator(`[id=${JSON.stringify(id)}]`);
   }
 
   getLinkRecuperarSenha(): Locator {
@@ -47,7 +55,7 @@ export default class LinkedInElements extends BaseElements {
   }
 
   getCampoRecuperacao(): Locator {
-    return this.page.locator('#username');
+    return this.getCampoEmail();
   }
 
   getBotaoRejeitarCookies(): Locator {

@@ -35,19 +35,19 @@ export default class LinkedInPage extends BasePage {
     await expect(this.linkedinElements.getLinkEntrar()).toBeVisible();
     await expect(this.linkedinElements.getLinkEntrar()).toHaveAttribute(
       'href',
-      /https:\/\/www\.linkedin\.com\/login(?:\?|$)/
+      /^(?:https:\/\/www\.linkedin\.com)?\/login(?:\/(?:pt|en))?\/?(?:\?|$)/
     );
     await expect(this.linkedinElements.getLinkCadastro()).toBeVisible();
     await expect(this.linkedinElements.getLinkCadastro()).toHaveAttribute(
       'href',
-      /https:\/\/www\.linkedin\.com\/signup(?:\?|$)/
+      /^(?:https:\/\/www\.linkedin\.com)?\/signup(?:\/(?:pt|en))?\/?(?:\?|$)/
     );
   }
 
   async abrirLogin(): Promise<void> {
     await this.linkedinElements.getLinkEntrar().click();
     await expect(this.page).toHaveURL(
-      /https:\/\/www\.linkedin\.com\/login(?:\?|$)/
+      /^https:\/\/www\.linkedin\.com\/login(?:\/(?:pt|en))?\/?(?:\?|$)/
     );
     await expect(this.linkedinElements.getCampoEmail()).toBeVisible();
   }
@@ -65,9 +65,12 @@ export default class LinkedInPage extends BasePage {
 
   async validarLoginSemPreenchimento(): Promise<void> {
     await this.linkedinElements.getBotaoEntrar().click();
-    await expect(this.linkedinElements.getErroEmail()).toBeVisible();
-    await expect(this.linkedinElements.getErroEmail()).toContainText(/\S/);
-    await expect(this.page).toHaveURL(/\/login(?:\?|$)/);
+    const erroEmail = await this.linkedinElements.getErroEmail();
+    await expect(erroEmail).toBeVisible();
+    await expect(erroEmail).toContainText(/\S/);
+    await expect(this.page).toHaveURL(
+      /^https:\/\/www\.linkedin\.com\/login(?:\/(?:pt|en))?\/?(?:\?|$)/
+    );
   }
 
   async validarVisibilidadeDaSenha(senha: string): Promise<void> {
@@ -85,7 +88,7 @@ export default class LinkedInPage extends BasePage {
   async abrirRecuperacaoDeSenha(): Promise<void> {
     await this.linkedinElements.getLinkRecuperarSenha().click();
     await expect(this.page).toHaveURL(
-      /\/checkpoint\/rp\/request-password-reset(?:\?|$)/
+      /^https:\/\/www\.linkedin\.com\/(?:passwordReset|checkpoint\/rp\/request-password-reset)\/?(?:\?|$)/
     );
     await expect(this.linkedinElements.getCampoRecuperacao()).toBeVisible();
     await expect(this.linkedinElements.getCampoRecuperacao()).toBeEditable();
