@@ -46,9 +46,12 @@ export default class LinkedInPage extends BasePage {
 
   async abrirLogin(): Promise<void> {
     await this.linkedinElements.getLinkEntrar().click();
-    // A versão localizada redireciona para a URL com barra final e recria o formulário.
+    // A versão cliente normaliza a URL e recria o formulário antes de receber dados.
     await this.page.waitForURL(
-      /^https:\/\/www\.linkedin\.com\/login(?:\/(?:pt|en)\/|\/?)(?:\?|$)/,
+      url =>
+        url.origin === 'https://www.linkedin.com' &&
+        /^\/login(?:\/(?:pt|en)\/|\/?)$/.test(url.pathname) &&
+        !url.searchParams.has('lipi'),
       { waitUntil: 'load' }
     );
     await expect(this.linkedinElements.getCampoEmail()).toBeVisible();

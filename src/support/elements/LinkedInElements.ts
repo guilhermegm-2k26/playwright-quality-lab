@@ -40,7 +40,7 @@ export default class LinkedInElements extends BaseElements {
 
   getErroEmail(): Locator {
     return this.page.getByText(
-      /insira um e-mail ou telefone|enter an email address or phone number/i
+      /insira um e-mail ou telefone|enter (?:an?|your) e-?mail(?: address)?(?: or phone(?: number)?)?/i
     );
   }
 
