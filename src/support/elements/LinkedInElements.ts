@@ -39,9 +39,11 @@ export default class LinkedInElements extends BaseElements {
   }
 
   getErroEmail(): Locator {
-    return this.page.getByText(
-      /insira um e-mail ou telefone|enter (?:an?|your) e-?mail(?: address)?(?: or phone(?: number)?)?/i
-    );
+    return this.page
+      .getByText(
+        /insira um e-mail ou telefone|enter (?:an?|your) e-?mail(?: address)?(?: or phone(?: number)?)?/i
+      )
+      .filter({ visible: true });
   }
 
   getLinkRecuperarSenha(): Locator {
